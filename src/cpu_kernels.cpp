@@ -2,6 +2,11 @@
 #include <array>
 #include <vector>
 #include "kernel_common.h"
+
+
+#include <iostream>
+
+
 namespace SCAMP {
 
 // this is hard coded for now. It needs to be a power of 2
@@ -48,6 +53,9 @@ template <SCAMPProfileType PROFILE_TYPE>
 inline void update_mp(mp_entry *mp, double corr, int row, int col,
                       double thresh) {
   if (PROFILE_TYPE == PROFILE_TYPE_1NN_INDEX) {
+    if (corr > thresh && row < col) {
+      std::cout << row << " " << col << "\n";
+    }
     if (corr > mp[col].floats[0]) {
       mp[col].floats[0] = corr;
       mp[col].ints[1] = row;
